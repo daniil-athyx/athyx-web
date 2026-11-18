@@ -1105,7 +1105,29 @@
         if (match.proxy && scramjet) {
           tab.frame.src = scramjet.encodeUrl(match.src);
         } else {
+          // Check if we need to load via fetch and srcdoc because of CDN text/plain header
+          const fullSrc = new URL(match.src, document.baseURI).href;
+          fetch(fullSrc)
+            .then(res => res.text())
+            .then(pageHtml => {
+              // Inject base tag into the frame's HTML so its assets resolve properly
+              const baseUrl = fullSrc.substring(0, fullSrc.lastIndexOf('/') + 1);
+              const patchedHtml = pageHtml.replace(/<head[^>]*>/i, '      if (match) {
+        tab.url = lower;
+        tab.title = match.title;
+        tab.icon = match.icon;
+        tab.favicon = "";
+        if (match.proxy && scramjet) {
+          tab.frame.src = scramjet.encodeUrl(match.src);
+        } else {
           tab.frame.src = match.src + "?v=" + Date.now();
+        }
+      }\n  <base href="' + baseUrl + '">');
+              tab.frame.srcdoc = patchedHtml;
+            })
+            .catch(() => {
+              tab.frame.src = match.src + "?v=" + Date.now();
+            });
         }
       } else {
         // External Web URL or Search
