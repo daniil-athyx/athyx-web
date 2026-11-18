@@ -580,29 +580,15 @@
 
         window.lastAppHtml = cleanHtml;
 
-        const launchMode = localStorage.getItem("athyx_game_launch_mode") === "iframe" ? "iframe" : "about:blank";
+        const launchMode = localStorage.getItem("athyx_game_launch_mode") || "iframe";
 
-        if (launchMode === "about:blank") {
-          appStageIframe.removeAttribute("srcdoc");
-          appStageIframe.src = "about:blank";
-          appStage.classList.add("show");
+        appStageIframe.removeAttribute("src");
+        appStageIframe.srcdoc = cleanHtml;
+        appStage.classList.add("show");
 
-          appStageIframe.contentWindow.document.open();
-          appStageIframe.contentWindow.document.write(cleanHtml);
-          appStageIframe.contentWindow.document.close();
-
-          try {
-            window.parent.postMessage({ action: "athyx_game_active", active: true, title: app.name }, "*");
-          } catch (e) { }
-        } else {
-          appStageIframe.removeAttribute("src");
-          appStageIframe.srcdoc = cleanHtml;
-          appStage.classList.add("show");
-
-          try {
-            window.parent.postMessage({ action: "athyx_game_active", active: true, title: app.name }, "*");
-          } catch (e) { }
-        }
+        try {
+          window.parent.postMessage({ action: "athyx_game_active", active: true, title: app.name }, "*");
+        } catch (e) { }
       } catch (err) {
         console.error("Failed to load app:", err);
         alert(`Failed to load ${app.name}.`);

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <base href="https://cdn.jsdelivr.net/gh/daniil-athyx/athyx-web@v2.0.0/">
+  <base href="https://cdn.jsdelivr.net/gh/daniil-athyx/athyx-web@v2.0.4/">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-BDX31ZZP55"></script>
   <script>
@@ -812,6 +812,15 @@
 
   <script>
     // Internal Athyx Routes configuration
+    const ATHYX_REPO_ROOT = (function() {
+      const href = (typeof window !== 'undefined' && window.location && window.location.href) || '';
+      const m = href.match(/https:\/\/cdn\.jsdelivr\.net\/gh\/[^/]+\/[^/@]+(?:@[^/]+)?/);
+      if (m) return m[0] + '/';
+      const baseEl = document.querySelector('base');
+      if (baseEl && baseEl.href) return baseEl.href.endsWith('/') ? baseEl.href : baseEl.href + '/';
+      return 'https://cdn.jsdelivr.net/gh/daniil-athyx/athyx-web@v2.0.4/';
+    })();
+
     const ATH_ROUTES = {
       'ath://home': {
         key: 'home',
@@ -1100,11 +1109,16 @@
         tab.title = match.title;
         tab.icon = match.icon;
         tab.favicon = "";
-        if (match.proxy && scramjet) {
-          tab.frame.src = scramjet.encodeUrl(match.src);
+        if (match.proxy) {
+          tab.frame.removeAttribute('srcdoc');
+          tab.frame.src = (scramjet && typeof scramjet.encodeUrl === 'function')
+            ? scramjet.encodeUrl(match.src)
+            : match.src;
+          tab.loading = false;
+          updateLoadingBar(100);
         } else {
           tab.frame.removeAttribute('src');
-          const fullSrc = new URL(match.src, document.baseURI).href;
+          const fullSrc = new URL(match.src, ATHYX_REPO_ROOT).href;
           fetch(fullSrc)
             .then(res => {
               if (!res.ok) throw new Error('Status ' + res.status);
@@ -1112,9 +1126,14 @@
             })
             .then(pageHtml => {
               const baseUrl = fullSrc.substring(0, fullSrc.lastIndexOf('/') + 1);
-              const patched = pageHtml.replace(/<head[^>]*>/i, function(m) {
-                return m + '\n  <base href="' + baseUrl + '">';
-              });
+              let patched = pageHtml;
+              if (/<head[^>]*>/i.test(patched)) {
+                patched = patched.replace(/<head[^>]*>/i, function(m) {
+                  return m + '\n  <base href="' + baseUrl + '">';
+                });
+              } else {
+                patched = '<base href="' + baseUrl + '">\n' + patched;
+              }
               tab.frame.srcdoc = patched;
               tab.loading = false;
               updateLoadingBar(100);
@@ -1122,7 +1141,7 @@
             .catch(function(err) {
               console.warn('Fetch srcdoc failed for ' + fullSrc, err);
               tab.frame.srcdoc = '';
-              tab.frame.src = match.src + '?v=' + Date.now();
+              tab.frame.src = fullSrc;
             });
         }
       } else {
