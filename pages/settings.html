@@ -2117,8 +2117,8 @@
 
       // Render Wisps and sync with wisp.txt
       renderWispSettings();
-      fetch("../wisp.txt?t=" + Date.now(), { cache: "no-store" })
-        .catch(() => fetch("https://cdn.jsdelivr.net/gh/daniil-athyx/Athyx-Network@main/wisp.txt?t=" + Date.now(), { cache: "no-store" }))
+      fetch(".../wisp.txt?t=" + Date.now(), { cache: "no-store" })
+        .catch(() => fetch("https://cdn.jsdelivr.net/gh/daniil-athyx/Athyx-Network@main./wisp.txt?t=" + Date.now(), { cache: "no-store" }))
         .then(res => res && res.ok ? res.text() : "")
         .then(text => {
           if (text) {
