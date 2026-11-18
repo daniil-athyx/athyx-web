@@ -1103,18 +1103,26 @@
         if (match.proxy && scramjet) {
           tab.frame.src = scramjet.encodeUrl(match.src);
         } else {
+          tab.frame.removeAttribute('src');
           const fullSrc = new URL(match.src, document.baseURI).href;
           fetch(fullSrc)
-            .then(res => res.text())
+            .then(res => {
+              if (!res.ok) throw new Error('Status ' + res.status);
+              return res.text();
+            })
             .then(pageHtml => {
               const baseUrl = fullSrc.substring(0, fullSrc.lastIndexOf('/') + 1);
               const patched = pageHtml.replace(/<head[^>]*>/i, function(m) {
                 return m + '\n  <base href="' + baseUrl + '">';
               });
               tab.frame.srcdoc = patched;
+              tab.loading = false;
+              updateLoadingBar(100);
             })
-            .catch(function() {
-              tab.frame.src = match.src + "?v=" + Date.now();
+            .catch(function(err) {
+              console.warn('Fetch srcdoc failed for ' + fullSrc, err);
+              tab.frame.srcdoc = '';
+              tab.frame.src = match.src + '?v=' + Date.now();
             });
         }
       } else {
