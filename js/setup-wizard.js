@@ -57,8 +57,8 @@
   async function getWispCandidates() {
     var list = DEFAULT_WISPS.slice();
     try {
-      var res = await fetch('./wisp.txt?t=' + Date.now(), { cache: 'no-store' }).catch(function () {
-        return fetch('https://cdn.jsdelivr.net/gh/daniil-athyx/Athyx-Network@main./wisp.txt?t=' + Date.now(), { cache: 'no-store' });
+      var res = await fetch('https://cdn.jsdelivr.net/gh/daniil-athyx/athyx-web@v1.0.4/wisp.txt?t=' + Date.now(), { cache: 'no-store' }).catch(function () {
+        return fetch('https://cdn.jsdelivr.net/gh/daniil-athyx/athyx-web@v1.0.4/wisp.txt?t=' + Date.now(), { cache: 'no-store' });
       });
       if (res && res.ok) {
         var text = await res.text();
