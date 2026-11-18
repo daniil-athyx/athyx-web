@@ -2036,8 +2036,8 @@
       // Panic Inputs
       const savedPanicKey = localStorage.getItem("athyx_panic_key") || "";
       const savedPanicUrl = localStorage.getItem("athyx_panic_url") || "https://www.google.com";
-      panicKeyInput.value = savedPanicKey;
-      panicUrlInput.value = savedPanicUrl;
+      if (panicKeyInput) panicKeyInput.value = savedPanicKey;
+      if (panicUrlInput) panicUrlInput.value = savedPanicUrl;
 
       // Cloak Preset state
       const selectedPresetKey = localStorage.getItem("athyx_preset_selected") || "default";

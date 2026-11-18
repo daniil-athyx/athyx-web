@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <base href="https://cdn.jsdelivr.net/gh/daniil-athyx/athyx-web@v2.0.4/">
+  <base href="https://cdn.jsdelivr.net/gh/daniil-athyx/athyx-web@v2.0.5/">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-BDX31ZZP55"></script>
   <script>
@@ -818,7 +818,7 @@
       if (m) return m[0] + '/';
       const baseEl = document.querySelector('base');
       if (baseEl && baseEl.href) return baseEl.href.endsWith('/') ? baseEl.href : baseEl.href + '/';
-      return 'https://cdn.jsdelivr.net/gh/daniil-athyx/athyx-web@v2.0.4/';
+      return 'https://cdn.jsdelivr.net/gh/daniil-athyx/athyx-web@v2.0.5/';
     })();
 
     const ATH_ROUTES = {
@@ -1040,6 +1040,9 @@
     function createTab(initialRoute = 'ath://home', makeActive = true) {
       const iframe = document.createElement("iframe");
       iframe.setAttribute("allow", "autoplay; fullscreen; gamepad; clipboard-read; clipboard-write; cross-origin-isolated");
+      iframe.setAttribute("allowtransparency", "true");
+      iframe.style.backgroundColor = "#000000";
+      iframe.style.colorScheme = "dark";
       iframe.title = "Athyx Content Frame";
       iframeContainer.appendChild(iframe);
 
@@ -1111,6 +1114,7 @@
         tab.favicon = "";
         if (match.proxy) {
           tab.frame.removeAttribute('srcdoc');
+          tab.frame.style.backgroundColor = '#000000';
           tab.frame.src = (scramjet && typeof scramjet.encodeUrl === 'function')
             ? scramjet.encodeUrl(match.src)
             : match.src;
@@ -1118,6 +1122,7 @@
           updateLoadingBar(100);
         } else {
           tab.frame.removeAttribute('src');
+          tab.frame.style.backgroundColor = '#000000';
           const fullSrc = new URL(match.src, ATHYX_REPO_ROOT).href;
           fetch(fullSrc)
             .then(res => {
@@ -1127,13 +1132,23 @@
             .then(pageHtml => {
               const baseUrl = fullSrc.substring(0, fullSrc.lastIndexOf('/') + 1);
               let patched = pageHtml;
+              const darkBaseStyle = `
+  <base href="${baseUrl}">
+  <style>
+    html, body {
+      background-color: #000000 !important;
+      color: #ffffff !important;
+      color-scheme: dark !important;
+    }
+  </style>`;
               if (/<head[^>]*>/i.test(patched)) {
                 patched = patched.replace(/<head[^>]*>/i, function(m) {
-                  return m + '\n  <base href="' + baseUrl + '">';
+                  return m + darkBaseStyle;
                 });
               } else {
-                patched = '<base href="' + baseUrl + '">\n' + patched;
+                patched = darkBaseStyle + '\n' + patched;
               }
+              tab.frame.style.backgroundColor = '#000000';
               tab.frame.srcdoc = patched;
               tab.loading = false;
               updateLoadingBar(100);
@@ -1165,7 +1180,55 @@
         if (scramjet) {
           tab.frame.src = scramjet.encodeUrl(fullUrl);
         } else {
-          tab.frame.src = fullUrl;
+          tab.frame.removeAttribute('src');
+          tab.frame.style.backgroundColor = '#000000';
+          tab.frame.srcdoc = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      background: #000000;
+      color: #ffffff;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 70vh;
+      text-align: center;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 32px 24px;
+      max-width: 480px;
+    }
+    h2 { margin: 0 0 12px; font-size: 20px; }
+    p { margin: 0 0 20px; font-size: 14px; color: #a1a1aa; line-height: 1.5; }
+    a.btn {
+      display: inline-block;
+      background: #ffffff;
+      color: #000000;
+      text-decoration: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Direct Web Browsing</h2>
+    <p>External websites like <strong>${new URL(fullUrl).hostname}</strong> protect themselves from being embedded inside iframes directly without a backend proxy server.</p>
+    <a href="${fullUrl}" target="_blank" rel="noopener noreferrer" class="btn">Open in New Window</a>
+  </div>
+</body>
+</html>`;
         }
       }
 
