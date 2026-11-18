@@ -708,408 +708,445 @@
     }
 
     /* ==========================================================================
-       School Disguise Gate / Gateway Authentication Cloak
+       School Website Disguise / Secret Search Box Trigger
        ========================================================================== */
-    #school-disguise-gate {
+    #school-disguise-site {
       position: fixed;
       inset: 0;
       z-index: 2147483647;
-      background: #f0f2f5 radial-gradient(circle at 10% 20%, #e8ecf2 0%, #f4f6fa 90%);
+      background: #f8fafc;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: #1c1e21;
+      color: #1e293b;
+      overflow-y: auto;
+      overflow-x: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      padding: 24px 16px;
-      overflow-y: auto;
-      transition: opacity 0.35s ease, visibility 0.35s ease;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
-    #school-disguise-gate.unlocked {
+    #school-disguise-site.unlocked {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
     }
 
-    .school-portal-header {
-      width: 100%;
-      max-width: 1024px;
+    .school-top-banner {
+      background: #1e3a8a;
+      color: #e0e7ff;
+      font-size: 13px;
+      padding: 7px 20px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      padding: 12px 0;
+      align-items: center;
     }
 
-    .school-portal-brand {
+    .school-top-banner a {
+      color: #ffffff;
+      text-decoration: underline;
+      margin-left: 8px;
+    }
+
+    .school-header {
+      background: #ffffff;
+      border-bottom: 2px solid #e2e8f0;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .school-brand {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
     }
 
-    .school-portal-brand svg {
-      width: 38px;
-      height: 38px;
-      color: #1a73e8;
+    .school-brand svg {
+      width: 44px;
+      height: 44px;
+      color: #1e3a8a;
     }
 
-    .school-portal-title {
-      font-size: 19px;
-      font-weight: 700;
-      color: #202124;
+    .school-name {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.3px;
       line-height: 1.2;
     }
 
-    .school-portal-subtitle {
+    .school-motto {
       font-size: 13px;
+      color: #64748b;
       font-weight: 500;
-      color: #5f6368;
     }
 
-    .school-portal-lang {
-      font-size: 13px;
-      color: #1a73e8;
+    .school-nav {
       display: flex;
+      gap: 20px;
       align-items: center;
-      gap: 6px;
-      cursor: pointer;
     }
 
-    .school-card {
-      width: 100%;
-      max-width: 440px;
+    .school-nav a {
+      color: #334155;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .school-nav a:hover {
+      background: #f1f5f9;
+      color: #1e3a8a;
+    }
+
+    .school-hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #2563eb 100%);
+      color: #ffffff;
+      padding: 56px 24px 64px;
+      text-align: center;
+      position: relative;
+    }
+
+    .school-hero-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .school-hero h1 {
+      font-size: 34px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .school-hero p {
+      font-size: 16px;
+      color: #dbeafe;
+      max-width: 650px;
+      margin: 0 auto 32px;
+      line-height: 1.5;
+    }
+
+    .school-search-box-wrapper {
+      max-width: 620px;
+      margin: 0 auto;
       background: #ffffff;
       border-radius: 12px;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
-      border: 1px solid #dadce0;
-      padding: 36px 32px 32px;
-      box-sizing: border-box;
-      margin: auto 0;
-      transition: transform 0.2s ease;
-    }
-
-    .school-card.shake {
-      animation: schoolShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-    }
-
-    @keyframes schoolShake {
-      10%, 90% { transform: translate3d(-2px, 0, 0); }
-      20%, 80% { transform: translate3d(4px, 0, 0); }
-      30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
-      40%, 60% { transform: translate3d(6px, 0, 0); }
-    }
-
-    .school-card-heading {
-      font-size: 24px;
-      font-weight: 600;
-      color: #202124;
-      margin-bottom: 6px;
-    }
-
-    .school-card-subheading {
-      font-size: 14px;
-      color: #5f6368;
-      line-height: 1.5;
-      margin-bottom: 24px;
-    }
-
-    .school-form-group {
-      margin-bottom: 18px;
-    }
-
-    .school-form-label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: #3c4043;
-      margin-bottom: 6px;
-    }
-
-    .school-input-wrapper {
-      position: relative;
+      padding: 6px 8px;
       display: flex;
       align-items: center;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.25), 0 8px 10px -6px rgba(0,0,0,0.2);
     }
 
-    .school-input-wrapper i {
-      position: absolute;
-      left: 14px;
-      color: #70757a;
-      font-size: 14px;
-      pointer-events: none;
+    .school-search-box-wrapper i {
+      color: #64748b;
+      font-size: 18px;
+      margin: 0 14px;
     }
 
-    .school-input {
-      width: 100%;
+    .school-search-input {
+      flex: 1;
       height: 44px;
-      padding: 10px 14px 10px 38px;
-      font-size: 15px;
-      color: #202124;
-      background: #ffffff;
-      border: 1px solid #dadce0;
-      border-radius: 6px;
+      border: none;
       outline: none;
-      box-sizing: border-box;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      font-size: 16px;
+      color: #0f172a;
+      background: transparent;
     }
 
-    .school-input:focus {
-      border-color: #1a73e8;
-      box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+    .school-search-input::placeholder {
+      color: #94a3b8;
     }
 
-    .school-remember {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 13px;
-      color: #5f6368;
-      margin-bottom: 22px;
-    }
-
-    .school-remember label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-    }
-
-    .school-remember input[type="checkbox"] {
-      cursor: pointer;
-      width: 16px;
-      height: 16px;
-      accent-color: #1a73e8;
-    }
-
-    .school-forgot-link {
-      color: #1a73e8;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .school-forgot-link:hover {
-      text-decoration: underline;
-    }
-
-    .school-error-banner {
-      display: none;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      background: #fce8e6;
-      border: 1px solid #fad2cf;
-      border-radius: 6px;
-      color: #c5221f;
-      font-size: 13px;
-      font-weight: 500;
-      margin-bottom: 18px;
-    }
-
-    .school-submit-btn {
-      width: 100%;
-      height: 44px;
-      background: #1a73e8;
+    .school-search-submit {
+      background: #1e3a8a;
       color: #ffffff;
       border: none;
-      border-radius: 6px;
-      font-size: 15px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
       font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: background 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .school-submit-btn:hover {
-      background: #1557b0;
-      box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3);
-    }
-
-    .school-submit-btn:active {
-      background: #174ea6;
-    }
-
-    .school-divider {
-      position: relative;
-      text-align: center;
-      margin: 24px 0 20px;
-    }
-
-    .school-divider::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: #e8eaed;
-    }
-
-    .school-divider span {
-      position: relative;
-      background: #ffffff;
-      padding: 0 12px;
-      font-size: 12px;
-      color: #80868b;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .school-sso-options {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .school-sso-btn {
-      width: 100%;
-      height: 40px;
-      background: #ffffff;
-      border: 1px solid #dadce0;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 500;
-      color: #3c4043;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
       cursor: pointer;
       transition: background 0.15s ease;
     }
 
-    .school-sso-btn:hover {
-      background: #f8f9fa;
+    .school-search-submit:hover {
+      background: #1e40af;
     }
 
-    .school-card-footer {
-      margin-top: 24px;
-      font-size: 12px;
-      color: #5f6368;
-      text-align: center;
-      line-height: 1.5;
+    .school-search-notice {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #dbeafe;
+      min-height: 20px;
     }
 
-    .school-footer-legal {
+    .school-content-container {
+      max-width: 1100px;
+      margin: -24px auto 40px;
+      padding: 0 20px;
       width: 100%;
-      max-width: 1024px;
+      box-sizing: border-box;
+      position: relative;
+      z-index: 10;
+    }
+
+    .school-grid-tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-bottom: 40px;
+    }
+
+    .school-tile {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 22px 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       display: flex;
       flex-direction: column;
-      align-items: center;
       gap: 8px;
-      font-size: 12px;
-      color: #70757a;
-      padding: 16px 0;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .school-tile:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    }
+
+    .school-tile i {
+      font-size: 24px;
+      color: #2563eb;
+      margin-bottom: 4px;
+    }
+
+    .school-tile h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0;
+    }
+
+    .school-tile p {
+      font-size: 13px;
+      color: #64748b;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .school-news-section {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 30px;
+    }
+
+    .school-news-section h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 0;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .school-news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .school-news-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f8fafc;
+    }
+
+    .school-news-date {
+      background: #f1f5f9;
+      color: #1e3a8a;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-align: center;
+      min-width: 50px;
+      font-weight: 700;
+      font-size: 13px;
+      line-height: 1.2;
+    }
+
+    .school-news-text h4 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .school-news-text p {
+      margin: 0;
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .school-footer {
+      background: #0f172a;
+      color: #94a3b8;
+      padding: 32px 24px;
+      font-size: 13px;
+      margin-top: auto;
+    }
+
+    .school-footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
       text-align: center;
     }
 
-    .school-legal-links {
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .school-legal-links a {
-      color: #5f6368;
+    .school-footer a {
+      color: #cbd5e1;
       text-decoration: none;
+      margin: 0 10px;
     }
 
-    .school-legal-links a:hover {
+    .school-footer a:hover {
       text-decoration: underline;
     }
   </style>
 </head>
 
 <body>
-  <!-- School Disguise Gate / Authentication Cloak -->
-  <div id="school-disguise-gate" aria-label="District Student Portal Login">
-    <header class="school-portal-header">
-      <div class="school-portal-brand">
+  <!-- School Website Disguise -->
+  <div id="school-disguise-site" aria-label="Westlake High School Portal">
+    <div class="school-top-banner">
+      <span><i class="fa-solid fa-bullhorn"></i> <strong>District Notice:</strong> 2026-2027 Academic Schedule &amp; Counseling Updates Posted.</span>
+      <div>
+        <a href="#" onclick="event.preventDefault();">Daily Bell Schedule</a>
+        <a href="#" onclick="event.preventDefault();">Staff Directory</a>
+      </div>
+    </div>
+
+    <header class="school-header">
+      <div class="school-brand">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
           <path d="M6 12v5c3 3 9 3 12 0v-5"/>
         </svg>
         <div>
-          <div class="school-portal-title" id="school-portal-district-name">Unified School District</div>
-          <div class="school-portal-subtitle">Student &amp; Staff Single Sign-On (SSO)</div>
+          <div class="school-name">Westlake High School</div>
+          <div class="school-motto">Home of the Wildcats • Unified School District 104</div>
         </div>
       </div>
-      <div class="school-portal-lang">
-        <i class="fa-solid fa-globe"></i> English (United States)
-      </div>
+      <nav class="school-nav">
+        <a href="#" onclick="event.preventDefault();">Academics</a>
+        <a href="#" onclick="event.preventDefault();">Student Life</a>
+        <a href="#" onclick="event.preventDefault();">Library</a>
+        <a href="#" onclick="event.preventDefault();">Athletics</a>
+        <a href="#" onclick="event.preventDefault();">Calendar</a>
+      </nav>
     </header>
 
-    <main class="school-card" id="school-card">
-      <h1 class="school-card-heading">Sign In</h1>
-      <p class="school-card-subheading">Access Google Classroom, Canvas LMS, Grades, and District Resources.</p>
+    <section class="school-hero">
+      <div class="school-hero-badge">Academic Year 2026 – 2027</div>
+      <h1>Excellence in Learning, Discovery &amp; Community</h1>
+      <p>Search course directories, digital textbooks, library resources, and student reference materials.</p>
 
-      <div class="school-error-banner" id="school-error-banner">
-        <i class="fa-solid fa-circle-exclamation"></i>
-        <span id="school-error-msg">Incorrect password or credentials. Please verify your credentials or contact IT Helpdesk.</span>
-      </div>
-
-      <form id="school-login-form" onsubmit="event.preventDefault(); handleSchoolLogin();">
-        <div class="school-form-group">
-          <label class="school-form-label" for="school-input-user">Student / Staff ID or Email</label>
-          <div class="school-input-wrapper">
-            <i class="fa-regular fa-user"></i>
-            <input type="text" id="school-input-user" class="school-input" placeholder="student_id@district.k12.us" autocomplete="username" spellcheck="false">
-          </div>
+      <form id="school-search-form" onsubmit="event.preventDefault(); handleSchoolSearch();">
+        <div class="school-search-box-wrapper">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="school-text-box" class="school-search-input" placeholder="Type here to search courses, library, or notes..." autocomplete="off" spellcheck="false" autofocus>
+          <button type="submit" class="school-search-submit">Search</button>
         </div>
-
-        <div class="school-form-group">
-          <label class="school-form-label" for="school-input-pass">Password</label>
-          <div class="school-input-wrapper">
-            <i class="fa-solid fa-lock"></i>
-            <input type="password" id="school-input-pass" class="school-input" placeholder="Enter your password" autocomplete="current-password" required>
-          </div>
+        <div id="school-search-status" class="school-search-notice">
+          Type search keywords or student access codes above
         </div>
-
-        <div class="school-remember">
-          <label>
-            <input type="checkbox" id="school-remember-me" checked>
-            <span>Remember this device</span>
-          </label>
-          <a href="#" class="school-forgot-link" onclick="event.preventDefault(); alert('Please contact your school administrator or IT Helpdesk to reset your password.');">Can't sign in?</a>
-        </div>
-
-        <button type="submit" id="school-submit-btn" class="school-submit-btn">
-          <span>Sign In</span>
-        </button>
       </form>
+    </section>
 
-      <div class="school-divider">
-        <span>Or connect with</span>
+    <div class="school-content-container">
+      <div class="school-grid-tiles">
+        <div class="school-tile" onclick="fakeTileClick('Canvas LMS & Google Classroom')">
+          <i class="fa-solid fa-book-open"></i>
+          <h3>Classroom &amp; Canvas</h3>
+          <p>Access online assignments, syllabi, and daily teacher announcements.</p>
+        </div>
+        <div class="school-tile" onclick="fakeTileClick('Student Gradebook & Attendance')">
+          <i class="fa-solid fa-chart-line"></i>
+          <h3>Grades &amp; Attendance</h3>
+          <p>Check quarter averages, attendance records, and report cards.</p>
+        </div>
+        <div class="school-tile" onclick="fakeTileClick('Library Research Databases')">
+          <i class="fa-solid fa-database"></i>
+          <h3>Research &amp; Databases</h3>
+          <p>JSTOR, EBSCOhost, and district digital encyclopedia subscriptions.</p>
+        </div>
+        <div class="school-tile" onclick="fakeTileClick('Guidance & Counseling')">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <h3>Counseling &amp; College</h3>
+          <p>AP Exam registration, SAT prep dates, and counselor appointments.</p>
+        </div>
       </div>
 
-      <div class="school-sso-options">
-        <button type="button" class="school-sso-btn" onclick="triggerQuickPrompt()">
-          <i class="fa-brands fa-google" style="color:#ea4335;"></i> Sign in with Google Workspace
-        </button>
-        <button type="button" class="school-sso-btn" onclick="triggerQuickPrompt()">
-          <i class="fa-brands fa-microsoft" style="color:#00a4ef;"></i> Sign in with Microsoft 365
-        </button>
+      <div class="school-news-section">
+        <h2><i class="fa-regular fa-newspaper"></i> Campus Announcements</h2>
+        <div class="school-news-list">
+          <div class="school-news-item">
+            <div class="school-news-date">NOV<br>19</div>
+            <div class="school-news-text">
+              <h4>Fall Science &amp; STEM Project Registration</h4>
+              <p>Submissions for the annual district science fair open this Friday in Room 204.</p>
+            </div>
+          </div>
+          <div class="school-news-item">
+            <div class="school-news-date">NOV<br>24</div>
+            <div class="school-news-text">
+              <h4>Varsity Soccer Regional Quarterfinals</h4>
+              <p>Westlake Wildcats vs. Oakridge Tigers at the Community Stadium, 6:00 PM kickoff.</p>
+            </div>
+          </div>
+          <div class="school-news-item">
+            <div class="school-news-date">DEC<br>02</div>
+            <div class="school-news-text">
+              <h4>Midterm Examination Schedule Released</h4>
+              <p>Review the comprehensive exam timetables and review sessions with department chairs.</p>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="school-card-footer">
-        Protected by District Cloud Identity Services.<br>
-        Trouble accessing? Visit the <a href="#" class="school-forgot-link" onclick="event.preventDefault(); alert('Support Desk is available Mon-Fri 7:30 AM - 4:00 PM.');">IT Support Portal</a>.
-      </div>
-    </main>
-
-    <footer class="school-footer-legal">
-      <div>Notice: This educational portal is restricted to authorized district personnel and registered students. Unauthorized access is strictly prohibited and subject to monitoring.</div>
-      <div class="school-legal-links">
-        <a href="#" onclick="event.preventDefault();">Privacy Statement</a>
-        <span>•</span>
-        <a href="#" onclick="event.preventDefault();">Acceptable Use Policy</a>
-        <span>•</span>
-        <a href="#" onclick="event.preventDefault();">Terms of Service</a>
-        <span>•</span>
-        <a href="#" onclick="event.preventDefault();">District Portal v4.2.1</a>
+    <footer class="school-footer">
+      <div class="school-footer-inner">
+        <div><strong>Westlake Community High School</strong> • 4500 Parkway Boulevard, District 104 • Main Office: (555) 234-8900</div>
+        <div>
+          <a href="#" onclick="event.preventDefault();">District Board</a> |
+          <a href="#" onclick="event.preventDefault();">Acceptable Use Policy</a> |
+          <a href="#" onclick="event.preventDefault();">Student Code of Conduct</a> |
+          <a href="#" onclick="event.preventDefault();">Non-Discrimination Policy</a>
+        </div>
+        <div style="font-size: 11px; opacity: 0.7;">© 2026 Unified School District. All rights reserved.</div>
       </div>
     </footer>
   </div>
@@ -2124,108 +2161,71 @@
     createTab('ath://home', true);
 
     /* ==========================================================================
-       School Disguise Gate Authentication Logic
+       School Website Disguise & Secret Search Trigger Logic
        ========================================================================== */
-    const DEFAULT_GATE_PASS = "athyx";
-    let isGateUnlocked = false;
-
-    function initSchoolGate() {
+    function initSchoolDisguise() {
       try {
-        const savedDistrict = localStorage.getItem("athyx_district_name") || "Unified School District";
-        const districtEl = document.getElementById("school-portal-district-name");
-        if (districtEl) districtEl.textContent = savedDistrict;
-
-        // Apply school tab title & educational favicon while locked
-        document.title = "Student & Staff Portal - Single Sign-On";
+        // Disguise tab title & educational favicon on page load
+        document.title = "Westlake High School | Student Portal & Resources";
         const favicons = document.querySelectorAll("link[rel*='icon']");
         favicons.forEach(el => {
           el.dataset.origHref = el.href;
-          el.href = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231a73e8'%3E%3Cpath d='M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM3.45 9L12 4.34 20.55 9 12 13.66 3.45 9zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z'/%3E%3C/svg%3E";
+          el.href = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231e3a8a'%3E%3Cpath d='M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM3.45 9L12 4.34 20.55 9 12 13.66 3.45 9zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z'/%3E%3C/svg%3E";
         });
 
-        const passInput = document.getElementById("school-input-pass");
-        if (passInput) {
-          setTimeout(() => passInput.focus(), 150);
+        const box = document.getElementById("school-text-box");
+        if (box) {
+          setTimeout(() => box.focus(), 150);
         }
       } catch(e) {}
     }
 
-    function handleSchoolLogin() {
-      const passInput = document.getElementById("school-input-pass");
-      const enteredPass = (passInput ? passInput.value : "").trim();
-      const correctPass = localStorage.getItem("athyx_gate_pass") || DEFAULT_GATE_PASS;
-      const errorBanner = document.getElementById("school-error-banner");
-      const card = document.getElementById("school-card");
-      const submitBtn = document.getElementById("school-submit-btn");
+    function handleSchoolSearch() {
+      const box = document.getElementById("school-text-box");
+      const val = (box ? box.value : "").trim().toLowerCase();
+      const status = document.getElementById("school-search-status");
 
-      if (enteredPass === correctPass || enteredPass.toLowerCase() === "athyx") {
-        if (errorBanner) errorBanner.style.display = "none";
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Authenticating...</span>';
-        }
-
-        setTimeout(() => {
-          unlockSchoolGate();
-        }, 350);
-      } else {
-        if (errorBanner) {
-          errorBanner.style.display = "flex";
-        }
-        if (card) {
-          card.classList.remove("shake");
-          void card.offsetWidth; // re-flow
-          card.classList.add("shake");
-        }
-        if (passInput) {
-          passInput.value = "";
-          passInput.focus();
+      if (val === "athyx" || val.includes("athyx")) {
+        // Correct secret password typed! Unlock Athyx Network!
+        unlockSchoolDisguise();
+      } else if (val.length > 0) {
+        if (status) {
+          status.textContent = `Displaying 3 catalog search results for "${val}" (No direct match in Library Section A)`;
+          status.style.color = "#ffffff";
         }
       }
     }
 
-    function triggerQuickPrompt() {
-      const passInput = document.getElementById("school-input-pass");
-      if (passInput) passInput.focus();
-      const errorBanner = document.getElementById("school-error-banner");
-      if (errorBanner) {
-        document.getElementById("school-error-msg").textContent = "Please enter your password above to proceed with SSO identity federation.";
-        errorBanner.style.display = "flex";
+    function fakeTileClick(name) {
+      const box = document.getElementById("school-text-box");
+      if (box) {
+        box.focus();
+      }
+      const status = document.getElementById("school-search-status");
+      if (status) {
+        status.textContent = `Type your student query or code in the box above to access ${name}.`;
+        status.style.color = "#ffffff";
       }
     }
 
-    function unlockSchoolGate() {
-      isGateUnlocked = true;
-      const gate = document.getElementById("school-disguise-gate");
-      if (gate) {
-        gate.classList.add("unlocked");
+    function unlockSchoolDisguise() {
+      const disguise = document.getElementById("school-disguise-site");
+      if (disguise) {
+        disguise.classList.add("unlocked");
         setTimeout(() => {
-          gate.style.display = "none";
-        }, 400);
+          disguise.style.display = "none";
+        }, 300);
       }
 
-      // Restore user's customized Athyx title and favicon
+      // Restore user's Athyx Network tab title and favicon
       const savedCloakTitle = localStorage.getItem("athyx_tab_title") || "Athyx Network";
       document.title = savedCloakTitle;
       const savedCloakIcon = localStorage.getItem("athyx_tab_icon") || "assets/favicon.png";
       document.querySelectorAll("link[rel*='icon']").forEach(el => el.href = savedCloakIcon);
     }
 
-    // Secret instant bypass combo: Alt + Shift + A
-    window.addEventListener("keydown", (e) => {
-      if (e.altKey && e.shiftKey && (e.key === "A" || e.key === "a")) {
-        const pass = prompt("Enter Athyx Passcode:");
-        if (pass) {
-          const correctPass = localStorage.getItem("athyx_gate_pass") || DEFAULT_GATE_PASS;
-          if (pass.trim() === correctPass || pass.trim().toLowerCase() === "athyx") {
-            unlockSchoolGate();
-          }
-        }
-      }
-    });
-
-    // Run gate init immediately on load
-    initSchoolGate();
+    // Run disguise setup on load
+    initSchoolDisguise();
   </script>
 </body>
 
