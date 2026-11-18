@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-  <base href="https://cdn.jsdelivr.net/gh/daniil-athyx/athyx-web@v2.0.5/">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-BDX31ZZP55"></script>
   <script>
@@ -707,10 +706,414 @@
         display: none;
       }
     }
+
+    /* ==========================================================================
+       School Disguise Gate / Gateway Authentication Cloak
+       ========================================================================== */
+    #school-disguise-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 2147483647;
+      background: #f0f2f5 radial-gradient(circle at 10% 20%, #e8ecf2 0%, #f4f6fa 90%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1c1e21;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 16px;
+      overflow-y: auto;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+
+    #school-disguise-gate.unlocked {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .school-portal-header {
+      width: 100%;
+      max-width: 1024px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+    }
+
+    .school-portal-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .school-portal-brand svg {
+      width: 38px;
+      height: 38px;
+      color: #1a73e8;
+    }
+
+    .school-portal-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: #202124;
+      line-height: 1.2;
+    }
+
+    .school-portal-subtitle {
+      font-size: 13px;
+      font-weight: 500;
+      color: #5f6368;
+    }
+
+    .school-portal-lang {
+      font-size: 13px;
+      color: #1a73e8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .school-card {
+      width: 100%;
+      max-width: 440px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+      border: 1px solid #dadce0;
+      padding: 36px 32px 32px;
+      box-sizing: border-box;
+      margin: auto 0;
+      transition: transform 0.2s ease;
+    }
+
+    .school-card.shake {
+      animation: schoolShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+
+    @keyframes schoolShake {
+      10%, 90% { transform: translate3d(-2px, 0, 0); }
+      20%, 80% { transform: translate3d(4px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+      40%, 60% { transform: translate3d(6px, 0, 0); }
+    }
+
+    .school-card-heading {
+      font-size: 24px;
+      font-weight: 600;
+      color: #202124;
+      margin-bottom: 6px;
+    }
+
+    .school-card-subheading {
+      font-size: 14px;
+      color: #5f6368;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .school-form-group {
+      margin-bottom: 18px;
+    }
+
+    .school-form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #3c4043;
+      margin-bottom: 6px;
+    }
+
+    .school-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .school-input-wrapper i {
+      position: absolute;
+      left: 14px;
+      color: #70757a;
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    .school-input {
+      width: 100%;
+      height: 44px;
+      padding: 10px 14px 10px 38px;
+      font-size: 15px;
+      color: #202124;
+      background: #ffffff;
+      border: 1px solid #dadce0;
+      border-radius: 6px;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .school-input:focus {
+      border-color: #1a73e8;
+      box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+    }
+
+    .school-remember {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #5f6368;
+      margin-bottom: 22px;
+    }
+
+    .school-remember label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .school-remember input[type="checkbox"] {
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+      accent-color: #1a73e8;
+    }
+
+    .school-forgot-link {
+      color: #1a73e8;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .school-forgot-link:hover {
+      text-decoration: underline;
+    }
+
+    .school-error-banner {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: #fce8e6;
+      border: 1px solid #fad2cf;
+      border-radius: 6px;
+      color: #c5221f;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 18px;
+    }
+
+    .school-submit-btn {
+      width: 100%;
+      height: 44px;
+      background: #1a73e8;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .school-submit-btn:hover {
+      background: #1557b0;
+      box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3);
+    }
+
+    .school-submit-btn:active {
+      background: #174ea6;
+    }
+
+    .school-divider {
+      position: relative;
+      text-align: center;
+      margin: 24px 0 20px;
+    }
+
+    .school-divider::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #e8eaed;
+    }
+
+    .school-divider span {
+      position: relative;
+      background: #ffffff;
+      padding: 0 12px;
+      font-size: 12px;
+      color: #80868b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .school-sso-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .school-sso-btn {
+      width: 100%;
+      height: 40px;
+      background: #ffffff;
+      border: 1px solid #dadce0;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #3c4043;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .school-sso-btn:hover {
+      background: #f8f9fa;
+    }
+
+    .school-card-footer {
+      margin-top: 24px;
+      font-size: 12px;
+      color: #5f6368;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .school-footer-legal {
+      width: 100%;
+      max-width: 1024px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #70757a;
+      padding: 16px 0;
+      text-align: center;
+    }
+
+    .school-legal-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .school-legal-links a {
+      color: #5f6368;
+      text-decoration: none;
+    }
+
+    .school-legal-links a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 
 <body>
+  <!-- School Disguise Gate / Authentication Cloak -->
+  <div id="school-disguise-gate" aria-label="District Student Portal Login">
+    <header class="school-portal-header">
+      <div class="school-portal-brand">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+        <div>
+          <div class="school-portal-title" id="school-portal-district-name">Unified School District</div>
+          <div class="school-portal-subtitle">Student &amp; Staff Single Sign-On (SSO)</div>
+        </div>
+      </div>
+      <div class="school-portal-lang">
+        <i class="fa-solid fa-globe"></i> English (United States)
+      </div>
+    </header>
+
+    <main class="school-card" id="school-card">
+      <h1 class="school-card-heading">Sign In</h1>
+      <p class="school-card-subheading">Access Google Classroom, Canvas LMS, Grades, and District Resources.</p>
+
+      <div class="school-error-banner" id="school-error-banner">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span id="school-error-msg">Incorrect password or credentials. Please verify your credentials or contact IT Helpdesk.</span>
+      </div>
+
+      <form id="school-login-form" onsubmit="event.preventDefault(); handleSchoolLogin();">
+        <div class="school-form-group">
+          <label class="school-form-label" for="school-input-user">Student / Staff ID or Email</label>
+          <div class="school-input-wrapper">
+            <i class="fa-regular fa-user"></i>
+            <input type="text" id="school-input-user" class="school-input" placeholder="student_id@district.k12.us" autocomplete="username" spellcheck="false">
+          </div>
+        </div>
+
+        <div class="school-form-group">
+          <label class="school-form-label" for="school-input-pass">Password</label>
+          <div class="school-input-wrapper">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="school-input-pass" class="school-input" placeholder="Enter your password" autocomplete="current-password" required>
+          </div>
+        </div>
+
+        <div class="school-remember">
+          <label>
+            <input type="checkbox" id="school-remember-me" checked>
+            <span>Remember this device</span>
+          </label>
+          <a href="#" class="school-forgot-link" onclick="event.preventDefault(); alert('Please contact your school administrator or IT Helpdesk to reset your password.');">Can't sign in?</a>
+        </div>
+
+        <button type="submit" id="school-submit-btn" class="school-submit-btn">
+          <span>Sign In</span>
+        </button>
+      </form>
+
+      <div class="school-divider">
+        <span>Or connect with</span>
+      </div>
+
+      <div class="school-sso-options">
+        <button type="button" class="school-sso-btn" onclick="triggerQuickPrompt()">
+          <i class="fa-brands fa-google" style="color:#ea4335;"></i> Sign in with Google Workspace
+        </button>
+        <button type="button" class="school-sso-btn" onclick="triggerQuickPrompt()">
+          <i class="fa-brands fa-microsoft" style="color:#00a4ef;"></i> Sign in with Microsoft 365
+        </button>
+      </div>
+
+      <div class="school-card-footer">
+        Protected by District Cloud Identity Services.<br>
+        Trouble accessing? Visit the <a href="#" class="school-forgot-link" onclick="event.preventDefault(); alert('Support Desk is available Mon-Fri 7:30 AM - 4:00 PM.');">IT Support Portal</a>.
+      </div>
+    </main>
+
+    <footer class="school-footer-legal">
+      <div>Notice: This educational portal is restricted to authorized district personnel and registered students. Unauthorized access is strictly prohibited and subject to monitoring.</div>
+      <div class="school-legal-links">
+        <a href="#" onclick="event.preventDefault();">Privacy Statement</a>
+        <span>•</span>
+        <a href="#" onclick="event.preventDefault();">Acceptable Use Policy</a>
+        <span>•</span>
+        <a href="#" onclick="event.preventDefault();">Terms of Service</a>
+        <span>•</span>
+        <a href="#" onclick="event.preventDefault();">District Portal v4.2.1</a>
+      </div>
+    </footer>
+  </div>
+
   <!-- Browser Chrome Layout -->
   <div class="browser-container">
     <!-- Tabs Bar -->
@@ -1719,6 +2122,110 @@
 
     // Initialize initial tab with home
     createTab('ath://home', true);
+
+    /* ==========================================================================
+       School Disguise Gate Authentication Logic
+       ========================================================================== */
+    const DEFAULT_GATE_PASS = "athyx";
+    let isGateUnlocked = false;
+
+    function initSchoolGate() {
+      try {
+        const savedDistrict = localStorage.getItem("athyx_district_name") || "Unified School District";
+        const districtEl = document.getElementById("school-portal-district-name");
+        if (districtEl) districtEl.textContent = savedDistrict;
+
+        // Apply school tab title & educational favicon while locked
+        document.title = "Student & Staff Portal - Single Sign-On";
+        const favicons = document.querySelectorAll("link[rel*='icon']");
+        favicons.forEach(el => {
+          el.dataset.origHref = el.href;
+          el.href = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231a73e8'%3E%3Cpath d='M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM3.45 9L12 4.34 20.55 9 12 13.66 3.45 9zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z'/%3E%3C/svg%3E";
+        });
+
+        const passInput = document.getElementById("school-input-pass");
+        if (passInput) {
+          setTimeout(() => passInput.focus(), 150);
+        }
+      } catch(e) {}
+    }
+
+    function handleSchoolLogin() {
+      const passInput = document.getElementById("school-input-pass");
+      const enteredPass = (passInput ? passInput.value : "").trim();
+      const correctPass = localStorage.getItem("athyx_gate_pass") || DEFAULT_GATE_PASS;
+      const errorBanner = document.getElementById("school-error-banner");
+      const card = document.getElementById("school-card");
+      const submitBtn = document.getElementById("school-submit-btn");
+
+      if (enteredPass === correctPass || enteredPass.toLowerCase() === "athyx") {
+        if (errorBanner) errorBanner.style.display = "none";
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Authenticating...</span>';
+        }
+
+        setTimeout(() => {
+          unlockSchoolGate();
+        }, 350);
+      } else {
+        if (errorBanner) {
+          errorBanner.style.display = "flex";
+        }
+        if (card) {
+          card.classList.remove("shake");
+          void card.offsetWidth; // re-flow
+          card.classList.add("shake");
+        }
+        if (passInput) {
+          passInput.value = "";
+          passInput.focus();
+        }
+      }
+    }
+
+    function triggerQuickPrompt() {
+      const passInput = document.getElementById("school-input-pass");
+      if (passInput) passInput.focus();
+      const errorBanner = document.getElementById("school-error-banner");
+      if (errorBanner) {
+        document.getElementById("school-error-msg").textContent = "Please enter your password above to proceed with SSO identity federation.";
+        errorBanner.style.display = "flex";
+      }
+    }
+
+    function unlockSchoolGate() {
+      isGateUnlocked = true;
+      const gate = document.getElementById("school-disguise-gate");
+      if (gate) {
+        gate.classList.add("unlocked");
+        setTimeout(() => {
+          gate.style.display = "none";
+        }, 400);
+      }
+
+      // Restore user's customized Athyx title and favicon
+      const savedCloakTitle = localStorage.getItem("athyx_tab_title") || "Athyx Network";
+      document.title = savedCloakTitle;
+      const savedCloakIcon = localStorage.getItem("athyx_tab_icon") || "assets/favicon.png";
+      document.querySelectorAll("link[rel*='icon']").forEach(el => el.href = savedCloakIcon);
+    }
+
+    // Secret instant bypass combo: Alt + Shift + A
+    window.addEventListener("keydown", (e) => {
+      if (e.altKey && e.shiftKey && (e.key === "A" || e.key === "a")) {
+        const pass = prompt("Enter Athyx Passcode:");
+        if (pass) {
+          const correctPass = localStorage.getItem("athyx_gate_pass") || DEFAULT_GATE_PASS;
+          if (pass.trim() === correctPass || pass.trim().toLowerCase() === "athyx") {
+            unlockSchoolGate();
+          }
+        }
+      }
+    });
+
+    // Run gate init immediately on load
+    initSchoolGate();
   </script>
 </body>
 
