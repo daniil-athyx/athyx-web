@@ -890,11 +890,11 @@
       if (typeof $scramjetLoadController === 'function') {
         const { ScramjetController } = $scramjetLoadController();
         scramjet = new ScramjetController({
-          prefix: '/scramjet/JS/scramjet/',
+          prefix: './scramjet/JS/scramjet/',
           files: {
-            wasm: '/scramjet/JS/scramjet.wasm.wasm',
-            all: '/scramjet/JS/scramjet.all.js',
-            sync: '/scramjet/JS/scramjet.sync.js',
+            wasm: './scramjet/JS/scramjet.wasm.wasm',
+            all: './scramjet/JS/scramjet.all.js',
+            sync: './scramjet/JS/scramjet.sync.js',
           },
           flags: {
             serviceworkers: true,
@@ -907,13 +907,13 @@
       }
 
       if (typeof BareMux !== 'undefined' && BareMux.BareMuxConnection) {
-        bareMuxConn = new BareMux.BareMuxConnection('/scramjet/B/worker.js');
+        bareMuxConn = new BareMux.BareMuxConnection('./scramjet/B/worker.js');
         const defaultWisp = localStorage.getItem("proxServer") || (typeof _CONFIG !== 'undefined' ? _CONFIG.wispurl : "wss://new-server.baylib.top/connection/");
-        bareMuxConn.setTransport('/scramjet/Ep/index.mjs', [{ wisp: defaultWisp }]).catch(e => console.warn(e));
+        bareMuxConn.setTransport('./scramjet/Ep/index.mjs', [{ wisp: defaultWisp }]).catch(e => console.warn(e));
       }
 
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/scramjet/sw.js', { scope: '/' }).catch(e => console.warn(e));
+        navigator.serviceWorker.register('./scramjet/sw.js', { scope: '/' }).catch(e => console.warn(e));
       }
     } catch(e) {
       console.warn('Scramjet proxy initialization error:', e);
@@ -944,7 +944,7 @@
       if (url.includes("pages/cloud.html")) return "ath://cloud";
       if (url.includes("pages/settings.html")) return "ath://settings";
       if (url.includes("NT.html")) return "ath://hometab";
-      const marker = "/scramjet/JS/scramjet/";
+      const marker = "./scramjet/JS/scramjet/";
       let current = url;
       while (current.includes(marker)) {
         const idx = current.indexOf(marker);
@@ -1436,7 +1436,7 @@
     async function loadWisps() {
       const container = document.getElementById("dynamic-wisps-container");
       try {
-        const res = await fetch("https://cdn.jsdelivr.net/gh/daniil-athyx/Athyx-Network@main/wisp.txt");
+        const res = await fetch("https://cdn.jsdelivr.net/gh/daniil-athyx/Athyx-Network@main./wisp.txt");
         if (!res.ok) throw new Error("fetch failed");
         const txt = await res.text();
         const urls = txt.split("\n").map(l => l.trim()).filter(l => l.startsWith("ws"));
@@ -1463,7 +1463,7 @@
       if (selectedWispUrl) {
         localStorage.setItem("proxServer", selectedWispUrl);
         if (bareMuxConn) {
-          bareMuxConn.setTransport('/scramjet/Ep/index.mjs', [{ wisp: selectedWispUrl }]);
+          bareMuxConn.setTransport('./scramjet/Ep/index.mjs', [{ wisp: selectedWispUrl }]);
         }
         wispModal.classList.add("hidden");
       }
