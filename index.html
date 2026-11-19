@@ -1252,12 +1252,10 @@
   <script>
     // Internal Athyx Routes configuration
     const ATHYX_REPO_ROOT = (function() {
-      const href = (typeof window !== 'undefined' && window.location && window.location.href) || '';
-      const m = href.match(/https:\/\/cdn\.jsdelivr\.net\/gh\/[^/]+\/[^/@]+(?:@[^/]+)?/);
-      if (m) return m[0] + '/';
-      const baseEl = document.querySelector('base');
-      if (baseEl && baseEl.href) return baseEl.href.endsWith('/') ? baseEl.href : baseEl.href + '/';
-      return 'https://cdn.jsdelivr.net/gh/daniil-athyx/athyx-web@v2.0.5/';
+      if (typeof window !== 'undefined' && window.location) {
+        return window.location.origin + window.location.pathname.replace(/[^/]*$/, '');
+      }
+      return './';
     })();
 
     const ATH_ROUTES = {
@@ -1560,43 +1558,12 @@
           tab.loading = false;
           updateLoadingBar(100);
         } else {
-          tab.frame.removeAttribute('src');
+          tab.frame.removeAttribute('srcdoc');
           tab.frame.style.backgroundColor = '#000000';
           const fullSrc = new URL(match.src, ATHYX_REPO_ROOT).href;
-          fetch(fullSrc)
-            .then(res => {
-              if (!res.ok) throw new Error('Status ' + res.status);
-              return res.text();
-            })
-            .then(pageHtml => {
-              const baseUrl = fullSrc.substring(0, fullSrc.lastIndexOf('/') + 1);
-              let patched = pageHtml;
-              const darkBaseStyle = `
-  <base href="${baseUrl}">
-  <style>
-    html, body {
-      background-color: #000000 !important;
-      color: #ffffff !important;
-      color-scheme: dark !important;
-    }
-  </style>`;
-              if (/<head[^>]*>/i.test(patched)) {
-                patched = patched.replace(/<head[^>]*>/i, function(m) {
-                  return m + darkBaseStyle;
-                });
-              } else {
-                patched = darkBaseStyle + '\n' + patched;
-              }
-              tab.frame.style.backgroundColor = '#000000';
-              tab.frame.srcdoc = patched;
-              tab.loading = false;
-              updateLoadingBar(100);
-            })
-            .catch(function(err) {
-              console.warn('Fetch srcdoc failed for ' + fullSrc, err);
-              tab.frame.srcdoc = '';
-              tab.frame.src = fullSrc;
-            });
+          tab.frame.src = fullSrc;
+          tab.loading = false;
+          updateLoadingBar(100);
         }
       } else {
         // External Web URL or Search
