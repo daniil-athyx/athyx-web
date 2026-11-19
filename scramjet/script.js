@@ -41,7 +41,7 @@ function logCompatibilityIssue(message) {
 }
 
 function showCompatibilityError(url, reason) {
-    if (!getCompatibilityFlag(COMPATIBILITY_FLAGS.offlinePage, false)) {
+    if (false) {
         return false;
     }
 
@@ -804,7 +804,11 @@ function handleSubmit(url = null) {
     activeTab.loading = true;
     updateLoadingBar(activeTab);
     activeTab.url = inputUrl;
-    activeTab.frame.go(inputUrl);
+    if (!window.isSecureContext && location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
+        showCompatibilityError(inputUrl, "Web proxy browsing requires an active Service Worker, which browsers strictly restrict to HTTPS origins or localhost. Please open external links directly or wait for GitHub to complete your custom domain SSL certificate.");
+    } else {
+        activeTab.frame.go(inputUrl);
+    }
 }
 
 window.addEventListener("load", async () => {
