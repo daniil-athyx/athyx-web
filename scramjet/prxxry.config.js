@@ -16,7 +16,9 @@ const DEAD_WISP_PATTERNS = [
     "tribeoftwo.com",
     "bitds.eu",
     "anymor.org",
-    "eminescusm.ro"
+    "eminescusm.ro",
+    "kidsprepnest.org",
+    "kidsprepglade.org"
 ];
 
 if (savedWisp && DEAD_WISP_PATTERNS.some(dead => savedWisp.includes(dead))) {
