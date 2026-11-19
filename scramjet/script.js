@@ -642,8 +642,8 @@ async function initializeBrowser() {
     updateAddressBar();
 
     // Wait for Service Worker to be active before navigating to proxy links
-    if (navigator.serviceWorker) {
-        await navigator.serviceWorker.ready;
+    if (navigator.serviceWorker && window.isSecureContext) {
+        await Promise.race([navigator.serviceWorker.ready, new Promise(r => setTimeout(r, 1500))]);
     }
 
     // Check for hash parameters after initialization
