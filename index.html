@@ -1353,7 +1353,7 @@
       }
 
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/scramjet/sw.js', { scope: '/' }).catch(e => console.warn(e));
+        navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(e => console.warn(e));
       }
     } catch(e) {
       console.warn('Scramjet proxy initialization error:', e);
