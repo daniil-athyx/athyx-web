@@ -749,7 +749,7 @@
   function rewriteCdnUrl(u) {
     if (!u || typeof u !== 'string') return u;
     const dest = activeCdnOrigin.replace(/\/+$/, '');
-    const pattern = /https?:\/\/(?:cdn|fastly|gcore)\.jsdelivr\.net|https?:\/\/jsdelivr\.5210521\.xyz|https?:\/\/cdn\.statically\.io/gi;
+    const pattern = /https?:\/\/(?:cdn|fastly|gcore)\.jsdelivr\.net|https?:\/\/cdn\.statically\.io/gi;
     return u.replace(pattern, dest);
   }
 

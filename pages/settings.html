@@ -1044,11 +1044,11 @@
 
           <!-- Game Asset CDN & Mirror -->
           <div class="setting-row"
-            data-search-keys="cdn mirror jsdelivr fastly gcore statically 5210521 school unblock filter network asset speed games">
+            data-search-keys="cdn mirror jsdelivr fastly gcore statically school unblock filter network asset speed games">
             <div class="setting-info">
               <span class="setting-title">Game & Asset CDN Mirror</span>
               <span class="setting-desc">Choose which CDN network streams game files. If your school blocks jsDelivr,
-                select 5210521, Gcore, or Fastly.</span>
+                select Gcore or Fastly.</span>
             </div>
             <div class="setting-control" style="position: relative;">
               <button class="dropdown-pill-btn" id="cdnDropdownBtn" onclick="toggleCdnDropdown()">
@@ -1066,9 +1066,6 @@
                 </button>
                 <button class="dropdown-item" id="cdn-opt-gcore" onclick="selectCdnMirror('gcore')">
                   <i class="fa-solid fa-network-wired"></i> Gcore CDN
-                </button>
-                <button class="dropdown-item" id="cdn-opt-5210521" onclick="selectCdnMirror('5210521')">
-                  <i class="fa-solid fa-shield-halved"></i> 5210521 (School Bypass)
                 </button>
                 <button class="dropdown-item" id="cdn-opt-statically" onclick="selectCdnMirror('statically')">
                   <i class="fa-solid fa-cloud"></i> Statically Multi-CDN

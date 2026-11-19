@@ -5,7 +5,6 @@
  * - https://cdn.jsdelivr.net (Official Default)
  * - https://fastly.jsdelivr.net (Fastly Mirror)
  * - https://gcore.jsdelivr.net (Gcore Mirror)
- * - https://jsdelivr.5210521.xyz (5210521 Reverse Proxy - School Unblocker)
  * - https://cdn.statically.io (Statically Multi-CDN Proxy)
  * - Custom CDN URL
  */
@@ -34,13 +33,6 @@
       badge: 'Gcore Global',
       desc: 'Gcore worldwide mirror, bypasses some blocks'
     },
-    '5210521': {
-      id: '5210521',
-      name: '5210521 Mirror',
-      origin: 'https://jsdelivr.5210521.xyz',
-      badge: 'School Bypass',
-      desc: 'Independent reverse-proxy mirror, unblocked on most firewalls'
-    },
     statically: {
       id: 'statically',
       name: 'Statically Proxy',
@@ -54,12 +46,10 @@
     'https://cdn.jsdelivr.net',
     'https://fastly.jsdelivr.net',
     'https://gcore.jsdelivr.net',
-    'https://jsdelivr.5210521.xyz',
     'https://cdn.statically.io',
     'http://cdn.jsdelivr.net',
     'http://fastly.jsdelivr.net',
     'http://gcore.jsdelivr.net',
-    'http://jsdelivr.5210521.xyz',
     'http://cdn.statically.io'
   ];
 
@@ -143,7 +133,7 @@
     if (!html || typeof html !== 'string') return html;
     var dest = (targetOrigin || getActiveCdn()).replace(/\/+$/, '');
 
-    var pattern = /https?:\/\/(?:cdn|fastly|gcore)\.jsdelivr\.net|https?:\/\/jsdelivr\.5210521\.xyz|https?:\/\/cdn\.statically\.io/gi;
+    var pattern = /https?:\/\/(?:cdn|fastly|gcore)\.jsdelivr\.net|https?:\/\/cdn\.statically\.io/gi;
     return html.replace(pattern, dest);
   }
 

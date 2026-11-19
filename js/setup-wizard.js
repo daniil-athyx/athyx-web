@@ -9,13 +9,6 @@
 
   var CDN_TARGETS = [
     {
-      id: '5210521',
-      name: '5210521 Mirror',
-      badge: 'School Bypass',
-      origin: 'https://jsdelivr.5210521.xyz',
-      icon: 'fa-shield-halved'
-    },
-    {
       id: 'gcore',
       name: 'Gcore CDN',
       badge: 'Global CDN',
@@ -572,7 +565,7 @@
     var workingCdns = cdnResults.filter(function (r) { return r.result.success; });
     workingCdns.sort(function (a, b) { return a.result.latency - b.result.latency; });
 
-    var chosenCdn = workingCdns.length > 0 ? workingCdns[0].cdn : CDN_TARGETS[0]; // fallback to 5210521
+    var chosenCdn = workingCdns.length > 0 ? workingCdns[0].cdn : CDN_TARGETS[0];
     if (workingCdns.length > 0) {
       var bestRow = document.getElementById('setup-cdn-' + chosenCdn.id);
       if (bestRow) {
