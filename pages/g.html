@@ -695,6 +695,12 @@
           html = window.AthyxCdn.rewriteHtml(html);
         }
 
+        // Neutralize any sitelocks or domain restriction checks so games work across all domains and localhost
+        html = html.replace(/\/\/ --- Athyx Sitelock Security Guard ---[\s\S]*?<\/script>/gi, '/* sitelock bypassed */</script>');
+        html = html.replace(/function\s+_isAuthorized\s*\(\)\s*\{[\s\S]*?return\s+false;\s*\}/gi, 'function _isAuthorized() { return true; }');
+        html = html.replace(/if\s*\(!_isAuthorized\(\)\)\s*\{[\s\S]*?throw\s+new\s+Error\([^)]*\);?\s*\}/gi, '/* sitelock bypassed */');
+        html = html.replace(/document\.documentElement\.innerHTML\s*=\s*['"][^'"]*Access Restricted[^'"]*['"];?/gi, '/* access restricted bypassed */');
+
 
 
         const iframeMatch = html.match(/<iframe\b[^>]*?\bsrc=["']([^"']+\.html(?:\?[^"']*)?)["']/i);
@@ -750,6 +756,19 @@
   try {
     Object.defineProperty(document, 'URL', { get: function() { return resolvedBase; }, configurable: true });
     Object.defineProperty(document, 'documentURI', { get: function() { return resolvedBase; }, configurable: true });
+  } catch(e) {}
+
+  // Universal Domain & Origin Spoofing to bypass third-party domain locks
+  try {
+    const authorizedOrigin = "https://athyx-network.web.app";
+    try {
+      Object.defineProperty(document, 'referrer', { get: function() { return authorizedOrigin + "/"; }, configurable: true });
+    } catch(e) {}
+    try {
+      if (window.location && window.location.ancestorOrigins) {
+        Object.defineProperty(window.location, 'ancestorOrigins', { get: function() { return [authorizedOrigin]; }, configurable: true });
+      }
+    } catch(e) {}
   } catch(e) {}
 
   // Scirra Construct 3 & 2 RuntimeInterface shim (prevents Construct from defaulting to file:/// due to origin === "null")

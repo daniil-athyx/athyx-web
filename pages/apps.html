@@ -564,7 +564,11 @@
       try {
         const response = await fetch(withNoCache(`https://cdn.jsdelivr.net/gh/daniil-athyx/athyx-apps@master/${app.file}`));
         if (!response.ok) throw new Error("Status " + response.status);
-        const html = await response.text();
+        let html = await response.text();
+
+        // Rewrite any hardcoded firebaseapp links to the current origin
+        html = html.replace(/https:\/\/athyx-network\.firebaseapp\.com/gi, window.location.origin);
+        html = html.replace(/https:\/\/athyx-network\.web\.app/gi, window.location.origin);
 
         document.body.classList.add("app-active");
 
